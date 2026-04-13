@@ -1,0 +1,1399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wein Café & Restaurant — Addis Ababa</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            inter: ['Inter', 'sans-serif'],
+            playfair: ['Playfair Display', 'serif'],
+          },
+          colors: {
+            bg: '#050505',
+            panel: '#0A0A0A',
+            txt: '#F7F8F8',
+            sub: '#8A8F98',
+            accent: '#E2B340',
+            accentDark: '#C49A2E',
+            green: '#5E6AD2',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: #050505; color: #F7F8F8; overflow-x: hidden; }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #0A0A0A; }
+    ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+
+    /* Gradient Text */
+    .gradient-text {
+      background: linear-gradient(180deg, #FFFFFF 0%, #E2B340 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .gradient-text-gold {
+      background: linear-gradient(135deg, #E2B340 0%, #F5D76E 50%, #E2B340 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInLeft {
+      from { opacity: 0; transform: translateX(-40px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes fadeInRight {
+      from { opacity: 0; transform: translateX(40px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-15px); }
+    }
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 20px rgba(226,179,64,0.15); }
+      50% { box-shadow: 0 0 40px rgba(226,179,64,0.3); }
+    }
+    @keyframes shimmer {
+      0% { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+    @keyframes rotate-slow {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    @keyframes width-grow {
+      from { width: 0%; }
+      to { width: 100%; }
+    }
+
+    .animate-fade-in { animation: fadeIn 1s ease-out forwards; }
+    .animate-fade-in-delay1 { animation: fadeIn 1s ease-out 0.2s forwards; opacity: 0; }
+    .animate-fade-in-delay2 { animation: fadeIn 1s ease-out 0.4s forwards; opacity: 0; }
+    .animate-fade-in-delay3 { animation: fadeIn 1s ease-out 0.6s forwards; opacity: 0; }
+    .animate-float { animation: float 6s ease-in-out infinite; }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-40px);
+      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal-left.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(40px);
+      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal-right.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* Hero overlay */
+    .hero-overlay {
+      background: linear-gradient(to bottom, rgba(5,5,5,0.3) 0%, rgba(5,5,5,0.6) 50%, #050505 100%);
+    }
+
+    /* Glass card */
+    .glass-card {
+      background: rgba(15,15,17,0.8);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    /* Menu card hover */
+    .menu-card {
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .menu-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(226,179,64,0.3);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 0 30px rgba(226,179,64,0.08);
+    }
+    .menu-card:hover .menu-img {
+      transform: scale(1.08);
+    }
+
+    /* Gallery item */
+    .gallery-item {
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .gallery-item:hover {
+      transform: scale(1.03);
+      z-index: 10;
+    }
+    .gallery-item:hover .gallery-overlay {
+      opacity: 1;
+    }
+
+    /* Divider */
+    .gold-divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(226,179,64,0.4), transparent);
+    }
+
+    /* Button styles */
+    .btn-primary {
+      background: #E2B340;
+      color: #050505;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    .btn-primary:hover {
+      background: #F5D76E;
+      transform: translateY(-2px);
+      box-shadow: 0 0 30px rgba(226,179,64,0.3);
+    }
+    .btn-outline {
+      border: 1px solid rgba(226,179,64,0.5);
+      color: #E2B340;
+      transition: all 0.3s ease;
+    }
+    .btn-outline:hover {
+      background: rgba(226,179,64,0.1);
+      border-color: #E2B340;
+      transform: translateY(-2px);
+    }
+
+    /* Nav active */
+    .nav-link {
+      position: relative;
+      transition: color 0.3s ease;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: #E2B340;
+      transition: all 0.3s ease;
+      transform: translateX(-50%);
+    }
+    .nav-link:hover::after,
+    .nav-link.active::after {
+      width: 100%;
+    }
+    .nav-link:hover, .nav-link.active {
+      color: #E2B340;
+    }
+
+    /* Mobile menu */
+    .mobile-menu {
+      transform: translateX(100%);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .mobile-menu.open {
+      transform: translateX(0);
+    }
+
+    /* Ticker */
+    .ticker-track {
+      display: flex;
+      animation: ticker 30s linear infinite;
+    }
+    @keyframes ticker {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* Lightbox */
+    .lightbox {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .lightbox.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    /* Toast */
+    .toast {
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* Stat counter */
+    .stat-number {
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Parallax image */
+    .parallax-img {
+      transition: transform 0.1s linear;
+    }
+
+    /* Ambient orbs */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.15;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient Orbs -->
+  <div class="orb w-[500px] h-[500px] bg-accent top-[-200px] left-[-100px] fixed" style="z-index:0;"></div>
+  <div class="orb w-[400px] h-[400px] bg-green bottom-[-150px] right-[-100px] fixed" style="z-index:0;"></div>
+
+  <!-- Navigation -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500">
+    <div class="max-w-[1300px] mx-auto px-6 py-5 flex items-center justify-between">
+      <!-- Logo -->
+      <a href="#home" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-full border border-accent/40 flex items-center justify-center group-hover:border-accent transition-colors duration-300" style="animation: pulse-glow 3s ease-in-out infinite;">
+          <i class="fas fa-wine-glass-alt text-accent text-sm"></i>
+        </div>
+        <div>
+          <span class="font-playfair text-xl font-semibold tracking-wide text-txt">Wein</span>
+          <span class="block text-[10px] tracking-[3px] uppercase text-sub -mt-1">Café & Restaurant</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav -->
+      <div class="hidden lg:flex items-center gap-8">
+        <a href="#home" class="nav-link text-sm text-sub active">Home</a>
+        <a href="#about" class="nav-link text-sm text-sub">About</a>
+        <a href="#menu" class="nav-link text-sm text-sub">Menu</a>
+        <a href="#gallery" class="nav-link text-sm text-sub">Gallery</a>
+        <a href="#reviews" class="nav-link text-sm text-sub">Reviews</a>
+        <a href="#contact" class="nav-link text-sm text-sub">Contact</a>
+      </div>
+
+      <!-- CTA + Mobile Toggle -->
+      <div class="flex items-center gap-4">
+        <a href="#contact" class="hidden md:inline-flex btn-primary px-6 py-2.5 rounded-full text-sm">
+          Reserve a Table
+        </a>
+        <button id="menuToggle" class="lg:hidden w-10 h-10 flex flex-col items-center justify-center gap-1.5">
+          <span class="w-6 h-[1.5px] bg-txt transition-all duration-300" id="bar1"></span>
+          <span class="w-6 h-[1.5px] bg-txt transition-all duration-300" id="bar2"></span>
+          <span class="w-4 h-[1.5px] bg-txt transition-all duration-300 ml-auto" id="bar3"></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div id="mobileMenu" class="mobile-menu fixed top-0 right-0 w-[80%] max-w-[400px] h-full z-[60] bg-panel/95 backdrop-blur-xl border-l border-white/5">
+    <div class="p-8">
+      <button id="menuClose" class="w-10 h-10 flex items-center justify-center rounded-full border border-white/10 mb-10 ml-auto hover:border-accent/50 transition-colors">
+        <i class="fas fa-times text-sub"></i>
+      </button>
+      <div class="flex flex-col gap-6">
+        <a href="#home" class="mobile-link text-2xl font-playfair text-sub hover:text-accent transition-colors">Home</a>
+        <a href="#about" class="mobile-link text-2xl font-playfair text-sub hover:text-accent transition-colors">About</a>
+        <a href="#menu" class="mobile-link text-2xl font-playfair text-sub hover:text-accent transition-colors">Menu</a>
+        <a href="#gallery" class="mobile-link text-2xl font-playfair text-sub hover:text-accent transition-colors">Gallery</a>
+        <a href="#reviews" class="mobile-link text-2xl font-playfair text-sub hover:text-accent transition-colors">Reviews</a>
+        <a href="#contact" class="mobile-link text-2xl font-playfair text-sub hover:text-accent transition-colors">Contact</a>
+      </div>
+      <div class="mt-12">
+        <a href="#contact" class="btn-primary block text-center px-6 py-3 rounded-full text-sm">Reserve a Table</a>
+      </div>
+      <div class="mt-10 pt-8 border-t border-white/5">
+        <p class="text-xs text-sub mb-3">Follow Us</p>
+        <div class="flex gap-4">
+          <a href="#" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-sub hover:text-accent hover:border-accent/50 transition-all"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-sub hover:text-accent hover:border-accent/50 transition-all"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-sub hover:text-accent hover:border-accent/50 transition-all"><i class="fab fa-tiktok"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="menuOverlay" class="fixed inset-0 bg-black/60 z-[55] opacity-0 pointer-events-none transition-opacity duration-300"></div>
+
+  <!-- ===== HERO ===== -->
+  <section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <!-- Background Image -->
+    <div class="absolute inset-0">
+      <img src="https://picsum.photos/seed/wein-cafe-hero/1920/1080.jpg" alt="Wein Café Interior" class="w-full h-full object-cover" id="heroImg">
+      <div class="hero-overlay absolute inset-0"></div>
+    </div>
+
+    <!-- Content -->
+    <div class="relative z-10 text-center px-6 max-w-[900px] mx-auto">
+      <div class="animate-fade-in">
+        <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-accent/30 text-accent text-xs tracking-[3px] uppercase mb-8">
+          <span class="w-2 h-2 bg-accent rounded-full"></span>
+          Est. in Addis Ababa
+        </span>
+      </div>
+      <h1 class="animate-fade-in-delay1 font-playfair text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-500 leading-[1.05] mb-6">
+        <span class="gradient-text">Wein</span>
+        <br>
+        <span class="text-txt text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-light italic opacity-90">Café & Restaurant</span>
+      </h1>
+      <p class="animate-fade-in-delay2 text-sub text-base sm:text-lg md:text-xl max-w-[600px] mx-auto mb-10 leading-relaxed">
+        Where Ethiopian warmth meets refined taste. Savor handcrafted coffee, exquisite cuisine, and curated wines in the heart of Addis Ababa.
+      </p>
+      <div class="animate-fade-in-delay3 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="#menu" class="btn-primary px-8 py-3.5 rounded-full text-sm tracking-wide">
+          Explore Our Menu
+        </a>
+        <a href="#about" class="btn-outline px-8 py-3.5 rounded-full text-sm tracking-wide">
+          Our Story
+        </a>
+      </div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-fade-in-delay3">
+      <span class="text-sub text-[10px] tracking-[3px] uppercase">Scroll</span>
+      <div class="w-[1px] h-10 bg-gradient-to-b from-accent/50 to-transparent"></div>
+    </div>
+  </section>
+
+  <!-- ===== TICKER ===== -->
+  <div class="border-y border-white/5 py-4 overflow-hidden bg-panel/50">
+    <div class="ticker-track">
+      <div class="flex items-center gap-8 px-4 whitespace-nowrap">
+        <span class="text-sub text-sm flex items-center gap-2"><i class="fas fa-coffee text-accent text-xs"></i> Ethiopian Coffee</span>
+        <span class="text-accent/30">✦</span>
+        <span class="text-sub text-sm flex items-center gap-2"><i class="fas fa-wine-glass text-accent text-xs"></i> Fine Wines</span>
+        <span class="text-accent/30">✦</span>
+        <span class="text-sub text-sm flex items-center gap-2"><i class="fas fa-utensils text-accent text-xs"></i> Authentic Cuisine</span>
+        <span class="text-accent/30">✦</span>
+        <span class="text-sub text-sm flex items-center gap-2"><i class="fas fa-leaf text-accent text-xs"></i> Fresh Ingredients</span>
+        <span class="text-accent/30">✦</span>
+        <span class="text-sub text-sm flex items-center gap-2"><i class="fas fa-music text-accent text-xs"></i> Live Music</span>
+        <span class="text-accent/30">✦</span>
+        <span class="text-sub text-sm flex items-center gap-2"><i class="fas fa-heart text-accent text-xs"></i> Cozy Ambiance</span>
+        <span class="text-accent/30">✦</span>
+        <span class="text-sub text-sm flex items-center gap-2"><i class="fas fa-star text-accent text-xs"></i> Premium Quality</span>
+        <span class="text-accent/30">✦</span>
+      </div>
+      <div class="flex items-center gap-8 px-4 whitespace-nowrap" aria-hidden="true">
+        <span class="text-sub text-sm flex items-center gap-2"><i class="fas fa-coffee text-accent text-xs"></i> Ethiopian Coffee</span>
+        <span class="text-accent/30">✦</span>
+        <span class="text-sub text-sm flex items-center gap-2"><i class="fas fa-wine-glass text-accent text-xs"></i> Fine Wines</span>
+        <span class="text-accent/30">✦</span>
+        <span class="text-sub text-sm flex items-center gap-2"><i class="fas fa-utensils text-accent text-xs"></i> Authentic Cuisine</span>
+        <span class="text-accent/30">✦</span>
+        <span class="text-sub text-sm flex items-center gap-2"><i class="fas fa-leaf text-accent text-xs"></i> Fresh Ingredients</span>
+        <span class="text-accent/30">✦</span>
+        <span class="text-sub text-sm flex items-center gap-2"><i class="fas fa-music text-accent text-xs"></i> Live Music</span>
+        <span class="text-accent/30">✦</span>
+        <span class="text-sub text-sm flex items-center gap-2"><i class="fas fa-heart text-accent text-xs"></i> Cozy Ambiance</span>
+        <span class="text-accent/30">✦</span>
+        <span class="text-sub text-sm flex items-center gap-2"><i class="fas fa-star text-accent text-xs"></i> Premium Quality</span>
+        <span class="text-accent/30">✦</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== ABOUT ===== -->
+  <section id="about" class="py-24 md:py-32">
+    <div class="max-w-[1200px] mx-auto px-6">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <!-- Image Side -->
+        <div class="reveal-left relative">
+          <div class="relative rounded-2xl overflow-hidden aspect-[4/5]">
+            <img src="https://picsum.photos/seed/wein-about-coffee/800/1000.jpg" alt="Wein Café Interior" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-bg/60 to-transparent"></div>
+          </div>
+          <!-- Floating card -->
+          <div class="absolute -bottom-6 -right-4 sm:right-6 glass-card rounded-2xl p-5 animate-float">
+            <div class="flex items-center gap-3 mb-2">
+              <div class="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center">
+                <i class="fas fa-award text-accent text-xs"></i>
+              </div>
+              <span class="text-sm font-medium">Top Rated</span>
+            </div>
+            <div class="flex gap-1 mb-1">
+              <i class="fas fa-star text-accent text-xs"></i>
+              <i class="fas fa-star text-accent text-xs"></i>
+              <i class="fas fa-star text-accent text-xs"></i>
+              <i class="fas fa-star text-accent text-xs"></i>
+              <i class="fas fa-star text-accent text-xs"></i>
+            </div>
+            <p class="text-xs text-sub">500+ Happy Reviews</p>
+          </div>
+          <!-- Decorative ring -->
+          <div class="absolute -top-6 -left-6 w-24 h-24 border border-accent/20 rounded-full" style="animation: rotate-slow 20s linear infinite;"></div>
+        </div>
+
+        <!-- Text Side -->
+        <div class="reveal-right">
+          <span class="text-accent text-xs tracking-[4px] uppercase mb-4 block">Our Story</span>
+          <h2 class="font-playfair text-4xl md:text-5xl lg:text-6xl font-500 leading-[1.1] mb-6">
+            A Taste of<br>
+            <span class="gradient-text-gold">Addis Ababa</span>
+          </h2>
+          <div class="gold-divider mb-8"></div>
+          <p class="text-sub text-base md:text-lg leading-[1.7] mb-6">
+            Nestled in the vibrant heart of Addis Ababa, Wein Café & Restaurant is more than just a dining destination — it's a celebration of Ethiopian culinary heritage infused with modern elegance.
+          </p>
+          <p class="text-sub text-base leading-[1.7] mb-10">
+            From our signature Ethiopian coffee ceremony, using single-origin beans from the highlands of Yirgacheffe, to our carefully curated menu that blends traditional flavors with contemporary presentation — every visit to Wein is an experience for the senses.
+          </p>
+
+          <!-- Stats -->
+          <div class="grid grid-cols-3 gap-6">
+            <div class="text-center sm:text-left">
+              <p class="font-playfair text-3xl md:text-4xl gradient-text-gold stat-number" data-target="8">0</p>
+              <p class="text-xs text-sub mt-1 tracking-wide uppercase">Years Serving</p>
+            </div>
+            <div class="text-center sm:text-left">
+              <p class="font-playfair text-3xl md:text-4xl gradient-text-gold stat-number" data-target="50">0</p>
+              <p class="text-xs text-sub mt-1 tracking-wide uppercase">Menu Items</p>
+            </div>
+            <div class="text-center sm:text-left">
+              <p class="font-playfair text-3xl md:text-4xl gradient-text-gold stat-number" data-target="15">0</p>
+              <p class="text-xs text-sub mt-1 tracking-wide uppercase">Wine Labels</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MENU HIGHLIGHTS ===== -->
+  <section id="menu" class="py-24 md:py-32 relative">
+    <div class="orb w-[300px] h-[300px] bg-accent top-[20%] right-[-100px]"></div>
+    <div class="max-w-[1200px] mx-auto px-6 relative z-10">
+      <!-- Header -->
+      <div class="text-center mb-16 reveal">
+        <span class="text-accent text-xs tracking-[4px] uppercase mb-4 block">Culinary Delights</span>
+        <h2 class="font-playfair text-4xl md:text-5xl lg:text-6xl font-500 mb-4">
+          <span class="gradient-text">Our Menu</span>
+        </h2>
+        <p class="text-sub text-base md:text-lg max-w-[500px] mx-auto">A curated selection of flavors crafted with passion and the finest ingredients</p>
+      </div>
+
+      <!-- Category Tabs -->
+      <div class="flex flex-wrap justify-center gap-3 mb-12 reveal">
+        <button class="menu-tab active px-5 py-2 rounded-full text-sm transition-all duration-300" data-category="all">All</button>
+        <button class="menu-tab px-5 py-2 rounded-full text-sm transition-all duration-300" data-category="coffee">Coffee</button>
+        <button class="menu-tab px-5 py-2 rounded-full text-sm transition-all duration-300" data-category="food">Food</button>
+        <button class="menu-tab px-5 py-2 rounded-full text-sm transition-all duration-300" data-category="wine">Wine</button>
+        <button class="menu-tab px-5 py-2 rounded-full text-sm transition-all duration-300" data-category="dessert">Desserts</button>
+      </div>
+
+      <!-- Menu Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="menuGrid">
+
+        <!-- Card 1 -->
+        <div class="menu-card glass-card rounded-2xl overflow-hidden reveal" data-category="coffee" style="transition-delay:0.05s">
+          <div class="aspect-[16/10] overflow-hidden">
+            <img src="https://picsum.photos/seed/wein-ethio-coffee/600/375.jpg" alt="Ethiopian Coffee Ceremony" class="menu-img w-full h-full object-cover transition-transform duration-700">
+          </div>
+          <div class="p-6">
+            <div class="flex items-start justify-between mb-2">
+              <h3 class="font-playfair text-lg font-medium">Ethiopian Coffee Ceremony</h3>
+              <span class="text-accent font-semibold text-sm whitespace-nowrap ml-3">ETB 250</span>
+            </div>
+            <p class="text-sub text-sm leading-relaxed">Traditional three-round coffee ceremony with popcorn, served in a jebena with aromatic incense.</p>
+            <div class="flex items-center gap-2 mt-4">
+              <span class="px-2.5 py-0.5 rounded-full bg-accent/10 text-accent text-[10px] tracking-wider uppercase">Signature</span>
+              <span class="px-2.5 py-0.5 rounded-full bg-white/5 text-sub text-[10px] tracking-wider uppercase">Hot</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="menu-card glass-card rounded-2xl overflow-hidden reveal" data-category="food" style="transition-delay:0.1s">
+          <div class="aspect-[16/10] overflow-hidden">
+            <img src="https://picsum.photos/seed/wein-doro-wot/600/375.jpg" alt="Doro Wot" class="menu-img w-full h-full object-cover transition-transform duration-700">
+          </div>
+          <div class="p-6">
+            <div class="flex items-start justify-between mb-2">
+              <h3 class="font-playfair text-lg font-medium">Doro Wot</h3>
+              <span class="text-accent font-semibold text-sm whitespace-nowrap ml-3">ETB 380</span>
+            </div>
+            <p class="text-sub text-sm leading-relaxed">Slow-simmered chicken stew with berbere spice, hard-boiled eggs, served on injera.</p>
+            <div class="flex items-center gap-2 mt-4">
+              <span class="px-2.5 py-0.5 rounded-full bg-accent/10 text-accent text-[10px] tracking-wider uppercase">Popular</span>
+              <span class="px-2.5 py-0.5 rounded-full bg-white/5 text-sub text-[10px] tracking-wider uppercase">Spicy</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="menu-card glass-card rounded-2xl overflow-hidden reveal" data-category="wine" style="transition-delay:0.15s">
+          <div class="aspect-[16/10] overflow-hidden">
+            <img src="https://picsum.photos/seed/wein-wine-glass/600/375.jpg" alt="Wine Selection" class="menu-img w-full h-full object-cover transition-transform duration-700">
+          </div>
+          <div class="p-6">
+            <div class="flex items-start justify-between mb-2">
+              <h3 class="font-playfair text-lg font-medium">Wine Flight</h3>
+              <span class="text-accent font-semibold text-sm whitespace-nowrap ml-3">ETB 650</span>
+            </div>
+            <p class="text-sub text-sm leading-relaxed">Curated tasting of three Ethiopian wines — Axumite, Rift Valley, and Dashen selections.</p>
+            <div class="flex items-center gap-2 mt-4">
+              <span class="px-2.5 py-0.5 rounded-full bg-accent/10 text-accent text-[10px] tracking-wider uppercase">Premium</span>
+              <span class="px-2.5 py-0.5 rounded-full bg-white/5 text-sub text-[10px] tracking-wider uppercase">Chilled</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="menu-card glass-card rounded-2xl overflow-hidden reveal" data-category="food" style="transition-delay:0.2s">
+          <div class="aspect-[16/10] overflow-hidden">
+            <img src="https://picsum.photos/seed/wein-kitfo/600/375.jpg" alt="Kitfo" class="menu-img w-full h-full object-cover transition-transform duration-700">
+          </div>
+          <div class="p-6">
+            <div class="flex items-start justify-between mb-2">
+              <h3 class="font-playfair text-lg font-medium">Kitfo Special</h3>
+              <span class="text-accent font-semibold text-sm whitespace-nowrap ml-3">ETB 420</span>
+            </div>
+            <p class="text-sub text-sm leading-relaxed">Premium minced beef with mitmita spice and clarified butter, served with injera or kocho.</p>
+            <div class="flex items-center gap-2 mt-4">
+              <span class="px-2.5 py-0.5 rounded-full bg-white/5 text-sub text-[10px] tracking-wider uppercase">Traditional</span>
+              <span class="px-2.5 py-0.5 rounded-full bg-white/5 text-sub text-[10px] tracking-wider uppercase">Spicy</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="menu-card glass-card rounded-2xl overflow-hidden reveal" data-category="coffee" style="transition-delay:0.25s">
+          <div class="aspect-[16/10] overflow-hidden">
+            <img src="https://picsum.photos/seed/wein-latte-art/600/375.jpg" alt="Macchiato" class="menu-img w-full h-full object-cover transition-transform duration-700">
+          </div>
+          <div class="p-6">
+            <div class="flex items-start justify-between mb-2">
+              <h3 class="font-playfair text-lg font-medium">Yirgacheffe Macchiato</h3>
+              <span class="text-accent font-semibold text-sm whitespace-nowrap ml-3">ETB 180</span>
+            </div>
+            <p class="text-sub text-sm leading-relaxed">Single-origin Yirgacheffe espresso with velvety steamed milk and intricate latte art.</p>
+            <div class="flex items-center gap-2 mt-4">
+              <span class="px-2.5 py-0.5 rounded-full bg-accent/10 text-accent text-[10px] tracking-wider uppercase">Best Seller</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="menu-card glass-card rounded-2xl overflow-hidden reveal" data-category="dessert" style="transition-delay:0.3s">
+          <div class="aspect-[16/10] overflow-hidden">
+            <img src="https://picsum.photos/seed/wein-dessert-cake/600/375.jpg" alt="Dessert" class="menu-img w-full h-full object-cover transition-transform duration-700">
+          </div>
+          <div class="p-6">
+            <div class="flex items-start justify-between mb-2">
+              <h3 class="font-playfair text-lg font-medium">Honey Baklava Stack</h3>
+              <span class="text-accent font-semibold text-sm whitespace-nowrap ml-3">ETB 220</span>
+            </div>
+            <p class="text-sub text-sm leading-relaxed">Layers of flaky phyllo pastry with Ethiopian honey, crushed pistachios, and rose cream.</p>
+            <div class="flex items-center gap-2 mt-4">
+              <span class="px-2.5 py-0.5 rounded-full bg-white/5 text-sub text-[10px] tracking-wider uppercase">Sweet</span>
+              <span class="px-2.5 py-0.5 rounded-full bg-white/5 text-sub text-[10px] tracking-wider uppercase">Fresh</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- View Full Menu -->
+      <div class="text-center mt-14 reveal">
+        <a href="#contact" class="btn-outline inline-flex items-center gap-2 px-8 py-3.5 rounded-full text-sm">
+          <i class="fas fa-book-open text-xs"></i>
+          View Full Menu
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== EXPERIENCE BANNER ===== -->
+  <section class="py-20 md:py-28 relative overflow-hidden">
+    <div class="absolute inset-0">
+      <img src="https://picsum.photos/seed/wein-ambiance-dark/1920/600.jpg" alt="Ambiance" class="w-full h-full object-cover opacity-30">
+      <div class="absolute inset-0 bg-gradient-to-r from-bg via-bg/80 to-bg/40"></div>
+    </div>
+    <div class="max-w-[1200px] mx-auto px-6 relative z-10">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <div class="reveal-left">
+          <span class="text-accent text-xs tracking-[4px] uppercase mb-4 block">The Experience</span>
+          <h2 class="font-playfair text-4xl md:text-5xl font-500 leading-[1.1] mb-6">
+            More Than a Meal,<br><span class="gradient-text-gold italic">A Memory</span>
+          </h2>
+          <p class="text-sub text-base md:text-lg leading-[1.7] mb-8">
+            Whether it's a quiet morning coffee, a business lunch, or an intimate dinner — Wein adapts to your moment. Our spaces are designed to make every occasion feel special.
+          </p>
+          <div class="flex flex-col gap-4">
+            <div class="flex items-center gap-4">
+              <div class="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center flex-shrink-0">
+                <i class="fas fa-sun text-accent text-sm"></i>
+              </div>
+              <div>
+                <p class="text-sm font-medium">Morning & Brunch</p>
+                <p class="text-xs text-sub">8:00 AM — 12:00 PM</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-4">
+              <div class="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center flex-shrink-0">
+                <i class="fas fa-cloud-sun text-accent text-sm"></i>
+              </div>
+              <div>
+                <p class="text-sm font-medium">Lunch & Afternoon</p>
+                <p class="text-xs text-sub">12:00 PM — 5:00 PM</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-4">
+              <div class="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center flex-shrink-0">
+                <i class="fas fa-moon text-accent text-sm"></i>
+              </div>
+              <div>
+                <p class="text-sm font-medium">Dinner & Drinks</p>
+                <p class="text-xs text-sub">5:00 PM — 11:00 PM</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="reveal-right grid grid-cols-2 gap-4">
+          <div class="space-y-4">
+            <div class="rounded-2xl overflow-hidden aspect-[3/4]">
+              <img src="https://picsum.photos/seed/wein-exp1/400/533.jpg" alt="Café interior" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700">
+            </div>
+            <div class="rounded-2xl overflow-hidden aspect-square">
+              <img src="https://picsum.photos/seed/wein-exp2/400/400.jpg" alt="Wine display" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700">
+            </div>
+          </div>
+          <div class="space-y-4 pt-8">
+            <div class="rounded-2xl overflow-hidden aspect-square">
+              <img src="https://picsum.photos/seed/wein-exp3/400/400.jpg" alt="Food plating" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700">
+            </div>
+            <div class="rounded-2xl overflow-hidden aspect-[3/4]">
+              <img src="https://picsum.photos/seed/wein-exp4/400/533.jpg" alt="Coffee art" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== GALLERY ===== -->
+  <section id="gallery" class="py-24 md:py-32">
+    <div class="max-w-[1200px] mx-auto px-6">
+      <div class="text-center mb-16 reveal">
+        <span class="text-accent text-xs tracking-[4px] uppercase mb-4 block">Visual Journey</span>
+        <h2 class="font-playfair text-4xl md:text-5xl lg:text-6xl font-500 mb-4">
+          <span class="gradient-text">Gallery</span>
+        </h2>
+        <p class="text-sub text-base md:text-lg max-w-[500px] mx-auto">Moments captured within our walls</p>
+      </div>
+
+      <!-- Masonry Grid -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+        <div class="gallery-item rounded-xl overflow-hidden cursor-pointer aspect-[3/4] relative" onclick="openLightbox(this)">
+          <img src="https://picsum.photos/seed/wein-gal1/500/667.jpg" alt="Gallery 1" class="w-full h-full object-cover">
+          <div class="gallery-overlay absolute inset-0 bg-bg/50 flex items-center justify-center opacity-0 transition-opacity duration-300">
+            <i class="fas fa-expand text-white text-lg"></i>
+          </div>
+        </div>
+        <div class="gallery-item rounded-xl overflow-hidden cursor-pointer aspect-square relative md:row-span-2" onclick="openLightbox(this)">
+          <img src="https://picsum.photos/seed/wein-gal2/500/1000.jpg" alt="Gallery 2" class="w-full h-full object-cover">
+          <div class="gallery-overlay absolute inset-0 bg-bg/50 flex items-center justify-center opacity-0 transition-opacity duration-300">
+            <i class="fas fa-expand text-white text-lg"></i>
+          </div>
+        </div>
+        <div class="gallery-item rounded-xl overflow-hidden cursor-pointer aspect-square relative" onclick="openLightbox(this)">
+          <img src="https://picsum.photos/seed/wein-gal3/500/500.jpg" alt="Gallery 3" class="w-full h-full object-cover">
+          <div class="gallery-overlay absolute inset-0 bg-bg/50 flex items-center justify-center opacity-0 transition-opacity duration-300">
+            <i class="fas fa-expand text-white text-lg"></i>
+          </div>
+        </div>
+        <div class="gallery-item rounded-xl overflow-hidden cursor-pointer aspect-[3/4] relative" onclick="openLightbox(this)">
+          <img src="https://picsum.photos/seed/wein-gal4/500/667.jpg" alt="Gallery 4" class="w-full h-full object-cover">
+          <div class="gallery-overlay absolute inset-0 bg-bg/50 flex items-center justify-center opacity-0 transition-opacity duration-300">
+            <i class="fas fa-expand text-white text-lg"></i>
+          </div>
+        </div>
+        <div class="gallery-item rounded-xl overflow-hidden cursor-pointer aspect-square relative" onclick="openLightbox(this)">
+          <img src="https://picsum.photos/seed/wein-gal5/500/500.jpg" alt="Gallery 5" class="w-full h-full object-cover">
+          <div class="gallery-overlay absolute inset-0 bg-bg/50 flex items-center justify-center opacity-0 transition-opacity duration-300">
+            <i class="fas fa-expand text-white text-lg"></i>
+          </div>
+        </div>
+        <div class="gallery-item rounded-xl overflow-hidden cursor-pointer aspect-[4/3] relative" onclick="openLightbox(this)">
+          <img src="https://picsum.photos/seed/wein-gal6/500/375.jpg" alt="Gallery 6" class="w-full h-full object-cover">
+          <div class="gallery-overlay absolute inset-0 bg-bg/50 flex items-center justify-center opacity-0 transition-opacity duration-300">
+            <i class="fas fa-expand text-white text-lg"></i>
+          </div>
+        </div>
+        <div class="gallery-item rounded-xl overflow-hidden cursor-pointer aspect-[4/3] relative" onclick="openLightbox(this)">
+          <img src="https://picsum.photos/seed/wein-gal7/500/375.jpg" alt="Gallery 7" class="w-full h-full object-cover">
+          <div class="gallery-overlay absolute inset-0 bg-bg/50 flex items-center justify-center opacity-0 transition-opacity duration-300">
+            <i class="fas fa-expand text-white text-lg"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="lightbox fixed inset-0 z-[70] bg-bg/95 backdrop-blur-xl flex items-center justify-center p-6">
+    <button onclick="closeLightbox()" class="absolute top-6 right-6 w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-sub hover:text-white hover:border-white/30 transition-all z-10">
+      <i class="fas fa-times text-lg"></i>
+    </button>
+    <img id="lightboxImg" src="" alt="" class="max-w-full max-h-[85vh] rounded-xl object-contain">
+  </div>
+
+  <!-- ===== REVIEWS ===== -->
+  <section id="reviews" class="py-24 md:py-32 relative overflow-hidden">
+    <div class="orb w-[400px] h-[400px] bg-green bottom-0 left-[-100px]"></div>
+    <div class="max-w-[1200px] mx-auto px-6 relative z-10">
+      <div class="text-center mb-16 reveal">
+        <span class="text-accent text-xs tracking-[4px] uppercase mb-4 block">Testimonials</span>
+        <h2 class="font-playfair text-4xl md:text-5xl lg:text-6xl font-500 mb-4">
+          <span class="gradient-text">What Guests Say</span>
+        </h2>
+      </div>
+
+      <!-- Reviews Carousel -->
+      <div class="relative">
+        <div class="overflow-hidden" id="reviewsContainer">
+          <div class="flex transition-transform duration-500 ease-out" id="reviewsTrack">
+            <!-- Review 1 -->
+            <div class="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-3">
+              <div class="glass-card rounded-2xl p-7 h-full">
+                <div class="flex gap-1 mb-4">
+                  <i class="fas fa-star text-accent text-sm"></i>
+                  <i class="fas fa-star text-accent text-sm"></i>
+                  <i class="fas fa-star text-accent text-sm"></i>
+                  <i class="fas fa-star text-accent text-sm"></i>
+                  <i class="fas fa-star text-accent text-sm"></i>
+                </div>
+                <p class="text-sub text-sm leading-relaxed mb-6">"The Ethiopian coffee ceremony here is absolutely magical. It's not just coffee — it's an entire cultural experience. The ambiance is warm, the staff is incredibly welcoming, and the flavors are authentic. A must-visit in Addis!"</p>
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
+                    <span class="text-accent text-sm font-medium">SA</span>
+                  </div>
+                  <div>
+                    <p class="text-sm font-medium">Sarah A.</p>
+                    <p class="text-xs text-sub">Travel Blogger</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Review 2 -->
+            <div class="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-3">
+              <div class="glass-card rounded-2xl p-7 h-full">
+                <div class="flex gap-1 mb-4">
+                  <i class="fas fa-star text-accent text-sm"></i>
+                  <i class="fas fa-star text-accent text-sm"></i>
+                  <i class="fas fa-star text-accent text-sm"></i>
+                  <i class="fas fa-star text-accent text-sm"></i>
+                  <i class="fas fa-star text-accent text-sm"></i>
+                </div>
+                <p class="text-sub text-sm leading-relaxed mb-6">"Best Doro Wot I've had outside of my grandmother's kitchen. The spices are perfectly balanced, the injera is fresh, and the presentation is beautiful. Wein elevates Ethiopian cuisine without losing its soul."</p>
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-full bg-green/20 flex items-center justify-center">
+                    <span class="text-green text-sm font-medium">DK</span>
+                  </div>
+                  <div>
+                    <p class="text-sm font-medium">Daniel K.</p>
+                    <p class="text-xs text-sub">Local Foodie</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Review 3 -->
+            <div class="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-3">
+              <div class="glass-card rounded-2xl p-7 h-full">
+                <div class="flex gap-1 mb-4">
+                  <i class="fas fa-star text-accent text-sm"></i>
+                  <i class="fas fa-star text-accent text-sm"></i>
+                  <i class="fas fa-star text-accent text-sm"></i>
+                  <i class="fas fa-star text-accent text-sm"></i>
+                  <i class="fas fa-star-half-alt text-accent text-sm"></i>
+                </div>
+                <p class="text-sub text-sm leading-relaxed mb-6">"We hosted our anniversary dinner at Wein and it was perfect. The wine selection impressed even my wine-snob husband. The private corner they set up for us was intimate and beautifully decorated. Truly special."</p>
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
+                    <span class="text-accent text-sm font-medium">ML</span>
+                  </div>
+                  <div>
+                    <p class="text-sm font-medium">Maria L.</p>
+                    <p class="text-xs text-sub">Diplomat</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Review 4 -->
+            <div class="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-3">
+              <div class="glass-card rounded-2xl p-7 h-full">
+                <div class="flex gap-1 mb-4">
+                  <i class="fas fa-star text-accent text-sm"></i>
+                  <i class="fas fa-star text-accent text-sm"></i>
+                  <i class="fas fa-star text-accent text-sm"></i>
+                  <i class="fas fa-star text-accent text-sm"></i>
+                  <i class="fas fa-star text-accent text-sm"></i>
+                </div>
+                <p class="text-sub text-sm leading-relaxed mb-6">"I come here every morning for my macchiato. The Yirgacheffe beans they use are exceptional — you can taste the highland origin. It's my favorite workspace in the city. Great Wi-Fi, great coffee, great people."</p>
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-full bg-green/20 flex items-center justify-center">
+                    <span class="text-green text-sm font-medium">YT</span>
+                  </div>
+                  <div>
+                    <p class="text-sm font-medium">Yohannes T.</p>
+                    <p class="text-xs text-sub">Software Engineer</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Review 5 -->
+            <div class="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-3">
+              <div class="glass-card rounded-2xl p-7 h-full">
+                <div class="flex gap-1 mb-4">
+                  <i class="fas fa-star text-accent text-sm"></i>
+                  <i class="fas fa-star text-accent text-sm"></i>
+                  <i class="fas fa-star text-accent text-sm"></i>
+                  <i class="fas fa-star text-accent text-sm"></i>
+                  <i class="fas fa-star text-accent text-sm"></i>
+                </div>
+                <p class="text-sub text-sm leading-relaxed mb-6">"As someone who's traveled extensively across Africa, Wein stands out. The fusion of traditional Ethiopian flavors with modern culinary techniques is brilliant. The honey baklava alone is worth the visit!"</p>
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
+                    <span class="text-accent text-sm font-medium">JC</span>
+                  </div>
+                  <div>
+                    <p class="text-sm font-medium">James C.</p>
+                    <p class="text-xs text-sub">Journalist</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Carousel Controls -->
+        <div class="flex items-center justify-center gap-4 mt-10">
+          <button onclick="slideReviews(-1)" class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-sub hover:text-accent hover:border-accent/50 transition-all">
+            <i class="fas fa-arrow-left text-sm"></i>
+          </button>
+          <div class="flex gap-2" id="reviewDots"></div>
+          <button onclick="slideReviews(1)" class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-sub hover:text-accent hover:border-accent/50 transition-all">
+            <i class="fas fa-arrow-right text-sm"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT / RESERVATION ===== -->
+  <section id="contact" class="py-24 md:py-32 relative">
+    <div class="orb w-[400px] h-[400px] bg-accent top-[10%] left-[50%] -translate-x-1/2"></div>
+    <div class="max-w-[1200px] mx-auto px-6 relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
+        <!-- Info Side -->
+        <div class="reveal-left">
+          <span class="text-accent text-xs tracking-[4px] uppercase mb-4 block">Visit Us</span>
+          <h2 class="font-playfair text-4xl md:text-5xl font-500 leading-[1.1] mb-6">
+            Reserve Your<br><span class="gradient-text-gold">Table</span>
+          </h2>
+          <div class="gold-divider mb-8"></div>
+          <p class="text-sub text-base leading-[1.7] mb-10">
+            We'd love to welcome you. Make a reservation or simply walk in — we'll always have a place for you.
+          </p>
+
+          <div class="space-y-6 mb-10">
+            <div class="flex items-start gap-4">
+              <div class="w-11 h-11 rounded-xl bg-accent/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <i class="fas fa-map-marker-alt text-accent"></i>
+              </div>
+              <div>
+                <p class="text-sm font-medium mb-1">Location</p>
+                <p class="text-sub text-sm">2Q83+5HR, Addis Ababa, Ethiopia</p>
+                <a href="https://maps.google.com/?q=2Q83+5HR+Addis+Ababa" target="_blank" class="text-accent text-xs hover:underline mt-1 inline-flex items-center gap-1">
+                  Open in Maps <i class="fas fa-external-link-alt text-[8px]"></i>
+                </a>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="w-11 h-11 rounded-xl bg-accent/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <i class="fas fa-clock text-accent"></i>
+              </div>
+              <div>
+                <p class="text-sm font-medium mb-1">Hours</p>
+                <p class="text-sub text-sm">Mon — Fri: 8:00 AM — 11:00 PM</p>
+                <p class="text-sub text-sm">Sat — Sun: 9:00 AM — 12:00 AM</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="w-11 h-11 rounded-xl bg-accent/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <i class="fas fa-phone text-accent"></i>
+              </div>
+              <div>
+                <p class="text-sm font-medium mb-1">Contact</p>
+                <p class="text-sub text-sm">+251 11 234 5678</p>
+                <p class="text-sub text-sm">info@weincafe.et</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Social -->
+          <div>
+            <p class="text-xs text-sub tracking-wider uppercase mb-3">Follow Us</p>
+            <div class="flex gap-3">
+              <a href="#" class="w-11 h-11 rounded-xl border border-white/10 flex items-center justify-center text-sub hover:text-accent hover:border-accent/50 hover:bg-accent/5 transition-all">
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a href="#" class="w-11 h-11 rounded-xl border border-white/10 flex items-center justify-center text-sub hover:text-accent hover:border-accent/50 hover:bg-accent/5 transition-all">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <a href="#" class="w-11 h-11 rounded-xl border border-white/10 flex items-center justify-center text-sub hover:text-accent hover:border-accent/50 hover:bg-accent/5 transition-all">
+                <i class="fab fa-tiktok"></i>
+              </a>
+              <a href="#" class="w-11 h-11 rounded-xl border border-white/10 flex items-center justify-center text-sub hover:text-accent hover:border-accent/50 hover:bg-accent/5 transition-all">
+                <i class="fab fa-telegram-plane"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form Side -->
+        <div class="reveal-right">
+          <form id="reservationForm" class="glass-card rounded-2xl p-8 md:p-10">
+            <h3 class="font-playfair text-xl font-medium mb-6">Make a Reservation</h3>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+              <div>
+                <label class="text-xs text-sub mb-1.5 block">Full Name</label>
+                <input type="text" placeholder="Your name" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-txt placeholder-sub/50 focus:outline-none focus:border-accent/50 transition-colors">
+              </div>
+              <div>
+                <label class="text-xs text-sub mb-1.5 block">Phone</label>
+                <input type="tel" placeholder="+251 ..." required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-txt placeholder-sub/50 focus:outline-none focus:border-accent/50 transition-colors">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+              <div>
+                <label class="text-xs text-sub mb-1.5 block">Date</label>
+                <input type="date" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-txt focus:outline-none focus:border-accent/50 transition-colors [color-scheme:dark]">
+              </div>
+              <div>
+                <label class="text-xs text-sub mb-1.5 block">Time</label>
+                <select required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-txt focus:outline-none focus:border-accent/50 transition-colors [color-scheme:dark] appearance-none" style="background-image: url('data:image/svg+xml;utf8,<svg fill=\'%238A8F98\' xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\'><path d=\'M7 10l5 5 5-5z\'/></svg>'); background-repeat: no-repeat; background-position: right 12px center; background-size: 20px;">
+                  <option value="" disabled selected class="bg-panel">Select time</option>
+                  <option value="8:00" class="bg-panel">8:00 AM</option>
+                  <option value="9:00" class="bg-panel">9:00 AM</option>
+                  <option value="10:00" class="bg-panel">10:00 AM</option>
+                  <option value="11:00" class="bg-panel">11:00 AM</option>
+                  <option value="12:00" class="bg-panel">12:00 PM</option>
+                  <option value="13:00" class="bg-panel">1:00 PM</option>
+                  <option value="14:00" class="bg-panel">2:00 PM</option>
+                  <option value="15:00" class="bg-panel">3:00 PM</option>
+                  <option value="17:00" class="bg-panel">5:00 PM</option>
+                  <option value="18:00" class="bg-panel">6:00 PM</option>
+                  <option value="19:00" class="bg-panel">7:00 PM</option>
+                  <option value="20:00" class="bg-panel">8:00 PM</option>
+                  <option value="21:00" class="bg-panel">9:00 PM</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <label class="text-xs text-sub mb-1.5 block">Number of Guests</label>
+              <div class="flex gap-2 flex-wrap">
+                <button type="button" class="guest-btn px-4 py-2 rounded-lg border border-white/10 text-sm text-sub hover:border-accent/50 hover:text-accent transition-all" data-count="1">1</button>
+                <button type="button" class="guest-btn px-4 py-2 rounded-lg border border-white/10 text-sm text-sub hover:border-accent/50 hover:text-accent transition-all" data-count="2">2</button>
+                <button type="button" class="guest-btn active px-4 py-2 rounded-lg border border-accent/50 text-sm text-accent bg-accent/10 transition-all" data-count="3">3</button>
+                <button type="button" class="guest-btn px-4 py-2 rounded-lg border border-white/10 text-sm text-sub hover:border-accent/50 hover:text-accent transition-all" data-count="4">4</button>
+                <button type="button" class="guest-btn px-4 py-2 rounded-lg border border-white/10 text-sm text-sub hover:border-accent/50 hover:text-accent transition-all" data-count="5">5+</button>
+              </div>
+            </div>
+
+            <div class="mb-6">
+              <label class="text-xs text-sub mb-1.5 block">Special Requests</label>
+              <textarea rows="3" placeholder="Any dietary requirements, celebrations, or preferences..." class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-txt placeholder-sub/50 focus:outline-none focus:border-accent/50 transition-colors resize-none"></textarea>
+            </div>
+
+            <button type="submit" class="btn-primary w-full py-3.5 rounded-xl text-sm tracking-wide flex items-center justify-center gap-2">
+              <i class="fas fa-calendar-check text-xs"></i>
+              Confirm Reservation
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MAP ===== -->
+  <section class="pb-0">
+    <div class="relative h-[300px] md:h-[400px]">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3940.5!2d38.746!3d9.025!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zOcKwMDEnMzAuMCJOIDM4wrA0NCc0NS42IkU!5e0!3m2!1sen!2set!4v1700000000000"
+        width="100%" height="100%" style="border:0; filter: grayscale(100%) invert(92%) contrast(83%);" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+      <div class="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-bg to-transparent pointer-events-none"></div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="py-16 border-t border-white/5">
+    <div class="max-w-[1200px] mx-auto px-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-14">
+        <!-- Brand -->
+        <div>
+          <a href="#home" class="flex items-center gap-3 mb-4">
+            <div class="w-9 h-9 rounded-full border border-accent/40 flex items-center justify-center">
+              <i class="fas fa-wine-glass-alt text-accent text-xs"></i>
+            </div>
+            <div>
+              <span class="font-playfair text-lg font-semibold">Wein</span>
+              <span class="block text-[9px] tracking-[2px] uppercase text-sub -mt-0.5">Café & Restaurant</span>
+            </div>
+          </a>
+          <p class="text-sub text-sm leading-relaxed max-w-[300px]">
+            Where Ethiopian warmth meets refined taste. A destination for coffee lovers, food enthusiasts, and wine connoisseurs.
+          </p>
+        </div>
+        <!-- Quick Links -->
+        <div>
+          <p class="text-xs tracking-[3px] uppercase text-sub mb-4">Quick Links</p>
+          <div class="flex flex-col gap-2.5">
+            <a href="#about" class="text-sm text-sub hover:text-accent transition-colors">Our Story</a>
+            <a href="#menu" class="text-sm text-sub hover:text-accent transition-colors">Menu</a>
+            <a href="#gallery" class="text-sm text-sub hover:text-accent transition-colors">Gallery</a>
+            <a href="#reviews" class="text-sm text-sub hover:text-accent transition-colors">Reviews</a>
+            <a href="#contact" class="text-sm text-sub hover:text-accent transition-colors">Reservations</a>
+          </div>
+        </div>
+        <!-- Newsletter -->
+        <div>
+          <p class="text-xs tracking-[3px] uppercase text-sub mb-4">Stay Updated</p>
+          <p class="text-sub text-sm mb-4">Get notified about special events, new menu items, and exclusive offers.</p>
+          <form id="newsletterForm" class="flex gap-2">
+            <input type="email" placeholder="Your email" required class="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-txt placeholder-sub/50 focus:outline-none focus:border-accent/50 transition-colors">
+            <button type="submit" class="btn-primary px-5 py-2.5 rounded-xl text-sm flex-shrink-0">
+              <i class="fas fa-paper-plane text-xs"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <div class="gold-divider mb-8"></div>
+
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+        <p class="text-sub text-xs">&copy; 2025 Wein Café & Restaurant. All rights reserved.</p>
+        <p class="text-sub/50 text-xs">Crafted with <i class="fas fa-heart text-accent text-[8px]"></i> in Addis Ababa</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast fixed bottom-6 left-1/2 -translate-x-1/2 z-[80] glass-card rounded-xl px-6 py-4 flex items-center gap-3">
+    <div class="w-8 h-8 rounded-full bg-green/20 flex items-center justify-center flex-shrink-0">
+      <i class="fas fa-check text-green text-sm"></i>
+    </div>
+    <p id="toastMessage" class="text-sm">Success!</p>
+  </div>
+
+  <!-- ===== JAVASCRIPT ===== -->
+  <script>
+    // ---- NAVBAR SCROLL ----
+    const navbar = document.getElementById('navbar');
+    let lastScroll = 0;
+    window.addEventListener('scroll', () => {
+      const currentScroll = window.scrollY;
+      if (currentScroll > 80) {
+        navbar.style.background = 'rgba(5,5,5,0.85)';
+        navbar.style.backdropFilter = 'blur(12px)';
+        navbar.style.borderBottom = '1px solid rgba(255,255,255,0.05)';
+      } else {
+        navbar.style.background = 'transparent';
+        navbar.style.backdropFilter = 'none';
+        navbar.style.borderBottom = 'none';
+      }
+      lastScroll = currentScroll;
+    });
+
+    // ---- MOBILE MENU ----
+    const menuToggle = document.getElementById('menuToggle');
+    const menuClose = document.getElementById('menuClose');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const menuOverlay = document.getElementById('menuOverlay');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
+
+    function openMenu() {
+      mobileMenu.classList.add('open');
+      menuOverlay.style.opacity = '1';
+      menuOverlay.style.pointerEvents = 'all';
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMenu() {
+      mobileMenu.classList.remove('open');
+      menuOverlay.style.opacity = '0';
+      menuOverlay.style.pointerEvents = 'none';
+      document.body.style.overflow = '';
+    }
+    menuToggle.addEventListener('click', openMenu);
+    menuClose.addEventListener('click', closeMenu);
+    menuOverlay.addEventListener('click', closeMenu);
+    mobileLinks.forEach(link => link.addEventListener('click', closeMenu));
+
+    // ---- ACTIVE NAV LINK ----
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(section => {
+        const top = section.offsetTop - 200;
+        if (window.scrollY >= top) current = section.getAttribute('id');
+      });
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${current}`) link.classList.add('active');
+      });
+    });
+
+    // ---- SCROLL REVEAL ----
+    const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    // ---- STAT COUNTER ----
+    const statNumbers = document.querySelectorAll('.stat-number');
+    const statObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const target = parseInt(entry.target.dataset.target);
+          let current = 0;
+          const increment = target / 40;
+          const timer = setInterval(() => {
+            current += increment;
+            if (current >= target) {
+              entry.target.textContent = target + '+';
+              clearInterval(timer);
+            } else {
+              entry.target.textContent = Math.floor(current);
+            }
+          }, 40);
+          statObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    statNumbers.forEach(el => statObserver.observe(el));
+
+    // ---- MENU FILTER ----
+    const menuTabs = document.querySelectorAll('.menu-tab');
+    const menuCards = document.querySelectorAll('.menu-card');
+
+    menuTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        menuTabs.forEach(t => {
+          t.classList.remove('active');
+          t.style.background = 'transparent';
+          t.style.color = '#8A8F98';
+          t.style.border = '1px solid rgba(255,255,255,0.1)';
+        });
+        tab.classList.add('active');
+        tab.style.background = 'rgba(226,179,64,0.15)';
+        tab.style.color = '#E2B340';
+        tab.style.border = '1px solid rgba(226,179,64,0.4)';
+
+        const category = tab.dataset.category;
+        menuCards.forEach(card => {
+          if (category === 'all' || card.dataset.category === category) {
+            card.style.display = '';
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+              card.style.opacity = '1';
+              card.style.transform = 'translateY(0)';
+            }, 50);
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // Initialize first tab style
+    menuTabs[0].style.background = 'rgba(226,179,64,0.15)';
+    menuTabs[0].style.color = '#E2B340';
+    menuTabs[0].style.border = '1px solid rgba(226,179,64,0.4)';
+    menuTabs.forEach(t => {
+      if (!t.classList.contains('active')) {
+        t.style.background = 'transparent';
+        t.style.color = '#8A8F98';
+        t.style.border = '1px solid rgba(255,255,255,0.1)';
+      }
+    });
+
+    // ---- GUEST COUNT BUTTONS ----
+    const guestBtns = document.querySelectorAll('.guest-btn');
+    guestBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        guestBtns.forEach(b => {
+          b.classList.remove('active');
+          b.style.background = 'transparent';
+          b.style.borderColor = 'rgba(255,255,255,0.1)';
+          b.style.color = '#8A8F98';
+        });
+        btn.classList.add('active');
+        btn.style.background = 'rgba(226,179,64,0.1)';
+        btn.style.borderColor = 'rgba(226,179,64,0.5)';
+        btn.style.color = '#E2B340';
+      });
+    });
+
+    // ---- REVIEWS CAROUSEL ----
+    const reviewsTrack = document.getElementById('reviewsTrack');
+    const reviewCards = reviewsTrack.children;
+    let currentReview = 0;
+    let reviewsPerView = 3;
+
+    function updateReviewsPerView() {
+      if (window.innerWidth < 768) reviewsPerView = 1;
+      else if (window.innerWidth < 1024) reviewsPerView = 2;
+      else reviewsPerView = 3;
+    }
+    updateReviewsPerView();
+    window.addEventListener('resize', () => {
+      updateReviewsPerView();
+      updateReviewDots();
+      slideReviews(0);
+    });
+
+    const maxReview = Math.max(0, reviewCards.length - reviewsPerView);
+
+    function slideReviews(dir) {
+      updateReviewsPerView();
+      const max = Math.max(0, reviewCards.length - reviewsPerView);
+      currentReview = Math.min(max, Math.max(0, currentReview + dir));
+      const percentage = (currentReview / reviewCards.length) * 100;
+      reviewsTrack.style.transform = `translateX(-${percentage}%)`;
+      updateReviewDots();
+    }
+
+    function updateReviewDots() {
+      const dotsContainer = document.getElementById('reviewDots');
+      const max = Math.max(0, reviewCards.length - reviewsPerView);
+      dotsContainer.innerHTML = '';
+      for (let i = 0; i <= max; i++) {
+        const dot = document.createElement('button');
+        dot.className = `w-2 h-2 rounded-full transition-all duration-300 ${i === currentReview ? 'bg-accent w-6' : 'bg-white/20'}`;
+        dot.addEventListener('click', () => {
+          currentReview = i;
+          const percentage = (currentReview / reviewCards.length) * 100;
+          reviewsTrack.style.transform = `translateX(-${percentage}%)`;
+          updateReviewDots();
+        });
+        dotsContainer.appendChild(dot);
+      }
+    }
+    updateReviewDots();
+
+    // ---- LIGHTBOX ----
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+
+    function openLightbox(el) {
+      const img = el.querySelector('img');
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt;
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeLightbox();
+    });
+
+    // ---- TOAST ----
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toastMessage');
+      toastMsg.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3500);
+    }
+
+    // ---- RESERVATION FORM ----
+    document.getElementById('reservationForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      showToast('Reservation confirmed! We\'ll contact you shortly.');
+      e.target.reset();
+      guestBtns.forEach(b => {
+        b.classList.remove('active');
+        b.style.background = 'transparent';
+        b.style.borderColor = 'rgba(255,255,255,0.1)';
+        b.style.color = '#8A8F98';
+      });
+      guestBtns[2].classList.add('active');
+      guestBtns[2].style.background = 'rgba(226,179,64,0.1)';
+      guestBtns[2].style.borderColor = 'rgba(226,179,64,0.5)';
+      guestBtns[2].style.color = '#E2B340';
+    });
+
+    // ---- NEWSLETTER FORM ----
+    document.getElementById('newsletterForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      showToast('Welcome! You\'re now subscribed to our updates.');
+      e.target.reset();
+    });
+
+    // ---- PARALLAX HERO ----
+    const heroImg = document.getElementById('heroImg');
+    window.addEventListener('scroll', () => {
+      const scroll = window.scrollY;
+      if (scroll < window.innerHeight) {
+        heroImg.style.transform = `scale(1.1) translateY(${scroll * 0.15}px)`;
+      }
+    });
+
+    // ---- SET MIN DATE FOR RESERVATION ----
+    const dateInput = document.querySelector('input[type="date"]');
+    if (dateInput) {
+      const today = new Date().toISOString().split('T')[0];
+      dateInput.setAttribute('min', today);
+    }
+  </script>
+
+</body>
+</html>
